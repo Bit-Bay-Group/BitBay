@@ -68,33 +68,44 @@ $(document).ready(function() {
        //console.log(hashPool);
         
       })
-      //Function converts JSON date outputs into a usable format organized in an array.
+    
      ).then(function() {
+      //Function converts JSON date outputs into a usable format organized in an array.
       var dateRange = [];
       var convert;
       for (var i = 0; i < transactionCount.values.length; i++) {
       convert = moment.unix(transactionCount.values[i].x).format("MMM Do");
       dateRange.push(convert);
       }
+      //Following functions organize the values from our APIs into an array for ease of access.
       var marketValue30Day = [];
       for (var i = 0; i < priceGraph.values.length; i++) {
       marketValue30Day.push(priceGraph.values[i].y);
       }
-      var hashPoolNameList = ["1Hash", "58COIN","AntPool","BTC.TOP","BTC.com","BTCC Pool","BW.COM","BitClub NEtwork","BitFury","Bitcoin India","Bitcoin.com","BitcoinRussia","CKPool","F2Pool","GBMiners","KanoPool","SlushPool","Solo CKPool","Unknown","ViaBTC","Waterhole"];
+      var transactionValue30Day = [];
+      for (var i = 0; i < transactionCount.values.length; i++) {
+        transactionValue30Day.push(transactionCount.values[i].y);
+      }
+      var outputValue30Day = [];
+      for (var i = 0; i < outputValue.values.length; i++) {
+        outputValue30Day.push(outputValue.values[i].y);
+      }
+      //Following function performs the same as above, but the numbers and . in their names were interfering with the syntax. This method, although ugly, worked for what we wanted.
+      var hashPoolNameList = ["58COIN","AntPool","BTC.TOP","BTC.com","BTCC Pool","BW.COM","BitClub NEtwork","BitFury","Bitcoin India","Bitcoin.com","BitcoinRussia","CKPool","ConnectBTC","F2Pool","GBMiners","KanoPool","SlushPool","Solo CKPool","Unknown","ViaBTC","Waterhole"];
       var hashPoolValueList = [];
-      hashPoolValueList[0] = hashPool["1Hash"];
-      hashPoolValueList[1] = hashPool["58COIN"];
-      hashPoolValueList[2] = hashPool["AntPool"];
-      hashPoolValueList[3] = hashPool["BTC.TOP"];
-      hashPoolValueList[4] = hashPool["BTC.com"];
-      hashPoolValueList[5] = hashPool["BTCC Pool"];
-      hashPoolValueList[6] = hashPool["BW.COM"];
-      hashPoolValueList[7] = hashPool["BitClub Network"];
-      hashPoolValueList[8] = hashPool["BitFury"];
-      hashPoolValueList[9] = hashPool["Bitcoin India"];
-      hashPoolValueList[10] = hashPool["Bitcoin.com"];
-      hashPoolValueList[11] = hashPool["BitcoinRussia"];
-      hashPoolValueList[12] = hashPool["CKPool"];
+      hashPoolValueList[0] = hashPool["58COIN"];
+      hashPoolValueList[1] = hashPool["AntPool"];
+      hashPoolValueList[2] = hashPool["BTC.TOP"];
+      hashPoolValueList[3] = hashPool["BTC.com"];
+      hashPoolValueList[4] = hashPool["BTCC Pool"];
+      hashPoolValueList[5] = hashPool["BW.COM"];
+      hashPoolValueList[6] = hashPool["BitClub Network"];
+      hashPoolValueList[7] = hashPool["BitFury"];
+      hashPoolValueList[8] = hashPool["Bitcoin India"];
+      hashPoolValueList[9] = hashPool["Bitcoin.com"];
+      hashPoolValueList[10] = hashPool["BitcoinRussia"];
+      hashPoolValueList[11] = hashPool["CKPool"];
+      hashPoolValueList[12] = hashPool["ConnectBTC"];
       hashPoolValueList[13] = hashPool["F2Pool"];
       hashPoolValueList[14] = hashPool["GBMiners"];
       hashPoolValueList[15] = hashPool["KanoPool"];
@@ -103,6 +114,11 @@ $(document).ready(function() {
       hashPoolValueList[18] = hashPool["Unknown"];
       hashPoolValueList[19] = hashPool["ViaBTC"];
       hashPoolValueList[20] = hashPool["Waterhole"];
+
+      
+
+
+      
       
      
 
