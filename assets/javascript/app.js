@@ -38,6 +38,14 @@ function jsonpcallback(data) {
   $("#result-3").append("<p>" + urlThree + "</p>");
   $("#result-3").append("<p>" + priceThree + "</p>");
 
+  //Bitcoin conversions
+  // I had to store the bitcoin number in a hidden html element to beat the scope issues
+  // the convertedPrice variable retrieves it and it can be used in this function
+  // the math to convert USD to bitcoin is just: price_in_USD / covertPrice
+  var convertPrice = $("#storeBTC").html();
+  $("#result-1").append("<p>" + parseFloat(priceOne / convertPrice).toFixed(8) + " BTC</p>");
+  $("#result-2").append("<p>" + parseFloat(priceTwo / convertPrice).toFixed(8) + " BTC</p>");
+  $("#result-3").append("<p>" + parseFloat(priceThree / convertPrice).toFixed(8) + " BTC</p>")
 }
 
 //--------------------------------------End eBay API JSON callback-----------------------
@@ -64,6 +72,7 @@ $(document).ready(function() {
   var hashPool;
   var transactionCount;
   var outputValue;
+  var convertBTC;
 
   $.when(
     //General Stats
@@ -129,9 +138,9 @@ $(document).ready(function() {
 
     // chartJS work goes here
     // Carousel options.
-    // $("#carouselExampleControls").carousel({
-    //   interval: 5000
-    // })
+    $("#carouselExampleControls").carousel({
+      interval: false
+    });
     // Function containing all of the carousel charts.
     function generateChart() {
       // Global Chartjs values
@@ -214,12 +223,12 @@ $(document).ready(function() {
           datasets: [{
             data: [10],
             backgroundColor: [
-              'rgba(250, 200, 37, 1)'
+              'rgba(255, 153, 0, 1)'
             ],
             borderColor: [
-              'rgba(255,99,132,1)'
+              'rgba(250, 200, 37, 1)'
             ],
-            borderWidth: 1
+            borderWidth: 2
           }]
         },
         options: {
@@ -243,8 +252,8 @@ $(document).ready(function() {
         data: {
           labels: dateRange,
           datasets: [{
-            backgroundColor: 'rgba(250, 200, 37, 0.7)',
-            borderColor: 'rgba(255, 153, 0, 1)',
+            backgroundColor: 'rgba(255, 153, 0, 1)',
+            borderColor: 'rgba(250, 200, 37, 1)',
             data: marketValue30Day,
           }, ],
         },
@@ -285,8 +294,9 @@ $(document).ready(function() {
         data: {
           labels: hashPoolNameList,
           datasets: [{
-            backgroundColor: 'rgba(250, 200, 37, 0.7)',
-            borderColor: 'rgba(255, 153, 0, 1)',
+            borderWidth: 2,
+            backgroundColor: 'rgba(255, 153, 0, 1)',
+            borderColor: 'rgba(250, 200, 37, 1)',
             data: hashPoolValueList,
           }, ]
         },
@@ -346,9 +356,10 @@ $(document).ready(function() {
         data: {
           labels: dateRange,
           datasets: [{
+            borderWidth: 2,
             label: "Relative Transaction Size (1/100,000 BTC)",
-            backgroundColor: 'rgba(250, 200, 37, 0.7)',
-            borderColor: 'rgba(255, 153, 0, 1)',
+            backgroundColor: 'rgba(255, 153, 0, 0.5)',
+            borderColor: 'rgba(250, 200, 37, 1)',
             data: bubbleData
           }]
         },
@@ -398,7 +409,8 @@ $(document).ready(function() {
 
       generateChart();
     });
-
+    convertBTC = gStats.market_price_usd;
+    $("#storeBTC").prepend(convertBTC).hide();
   }); // end of $.when().then() function
   //----------------------End Blockchain API GET request----------------------
 
